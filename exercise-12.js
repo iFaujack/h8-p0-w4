@@ -4,10 +4,6 @@ function countProfit(shoppers) {
                        ['Sweater Uniklooh', 175000, 1]
                      ];
     // you can only write your code here!
-
-    // console.log(listBarang[1][0]);
-    
-    // var amount = shoppers[i].amount;
     var countProfit = [];
     for (var i=0; i<listBarang.length; i++){
       var obj ={
@@ -24,29 +20,18 @@ function countProfit(shoppers) {
     }
 
     for (var i=0; i<shoppers.length; i++){
-      var product = shoppers[i].product;
-        for (var j=0; j<listBarang.length; j++){
-          if (product === listBarang[j][0]){
-            var leftOver = countProfit[j].leftOver;
-            var arrShoppers = countProfit[j].shoppers;
-            var totalProfit = countProfit[j].totalProfit;
-            // console.log(shoppers[i].amount)
-           
-            if (leftOver > shoppers[i].amount){
-              leftOver -= shoppers[i].amount;
-              arrShoppers.push(shoppers[i].name)
-              totalProfit = totalProfit + (shoppers[i].amount*listBarang[j][1]);
-  
-              var obj = {
-                product: listBarang[j][0],
-                shoppers:arrShoppers,
-                leftOver: leftOver,
-                totalProfit: totalProfit
-              }
-              countProfit[j] = obj;
-            }
+      var check = shoppers[i];
+      for (var j=0; j<countProfit.length; j++){
+        var check1 = countProfit[j];
+        // console.log(check.name)
+        if (check1.product === check.product){
+          if (check1.leftOver >= check.amount){
+            check1.leftOver -= check.amount
+            check1.shoppers.push(check.name)
+            check1.totalProfit += (listBarang[j][1] * check.amount)
           }
         }
+      }
     }
 
     return countProfit
